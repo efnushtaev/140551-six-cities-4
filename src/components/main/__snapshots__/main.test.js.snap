@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`mainTest Main should be rendered correct 1`] = `
+<div>
+  <button
+    className="title"
+    onClick={[MockFunction]}
+  >
+    Offers count is 
+    3
+  </button>
+  <p>
+    first-name
+  </p>
+  <p>
+    second-name
+  </p>
+</div>
+`;

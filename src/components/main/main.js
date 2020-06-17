@@ -1,17 +1,19 @@
+/* eslint-disable no-debugger */
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Main = ({offersCount, namePlaceCard}) => {
+const Main = ({offersCount, placeCardNames, onTitleClick}) => {
   return <div>
-    <span>Offers count is {offersCount}</span>
-    {namePlaceCard.map((e) => {
+    <button onClick={onTitleClick} className={`title`}>Offers count is {offersCount}</button>
+    {placeCardNames.map((e) => {
       return <p key={e}>{e}</p>;
     })}</div>;
 };
 
 Main.propTypes = {
   offersCount: PropTypes.number.isRequired,
-  namePlaceCard: PropTypes.arrayOf(PropTypes).isRequired
+  placeCardNames: PropTypes.arrayOf(PropTypes.string).isRequired,
+  onTitleClick: PropTypes.func.isRequired
 };
 
 export default Main;
