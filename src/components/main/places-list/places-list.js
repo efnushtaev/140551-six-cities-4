@@ -3,13 +3,14 @@ import PropTypes from 'prop-types';
 import PlaceCard from '../place-card/place-card';
 
 const PlacesList = ({mock, onPlaceCardMouseOver}) => {
-  return (
-    mock.map((e) => {
-      return <div className="cities__places-list places__list tabs__content" key={e.id}>
-        <PlaceCard mock={e} onPlaceCardMouseOver={onPlaceCardMouseOver}/>
-      </div>;
-    })
-  );
+  return <div className="cities__places-list places__list tabs__content">
+    {mock.map((e) => {
+      return <PlaceCard
+        mock={e}
+        key={e.id}
+        onPlaceCardMouseOver={onPlaceCardMouseOver}/>;
+    })}
+  </div>;
 };
 
 PlacesList.propTypes = {
