@@ -6,7 +6,8 @@ import {describe, expect, it} from '@jest/globals';
 describe(`mainTest`, () => {
   it(`Main should be rendered correct`, () => {
     const tree = renderer
-      .create(<Main/>);
+      .create(<Main/>)
+      .toJSON();
 
     expect(tree).toMatchSnapshot();
   });

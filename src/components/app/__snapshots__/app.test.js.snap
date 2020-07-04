@@ -116,10 +116,6 @@ exports[`appTest App should be rendered correct 1`] = `
             </p>
           </div>
         </article>
-      </div>
-      <div
-        className="cities__places-list places__list tabs__content"
-      >
         <article
           className="cities__place-card place-card"
           onMouseOver={[Function]}
@@ -223,10 +219,6 @@ exports[`appTest App should be rendered correct 1`] = `
             </p>
           </div>
         </article>
-      </div>
-      <div
-        className="cities__places-list places__list tabs__content"
-      >
         <article
           className="cities__place-card place-card"
           onMouseOver={[Function]}
@@ -330,10 +322,6 @@ exports[`appTest App should be rendered correct 1`] = `
             </p>
           </div>
         </article>
-      </div>
-      <div
-        className="cities__places-list places__list tabs__content"
-      >
         <article
           className="cities__place-card place-card"
           onMouseOver={[Function]}
@@ -437,10 +425,6 @@ exports[`appTest App should be rendered correct 1`] = `
             </p>
           </div>
         </article>
-      </div>
-      <div
-        className="cities__places-list places__list tabs__content"
-      >
         <article
           className="cities__place-card place-card"
           onMouseOver={[Function]}
@@ -546,6 +530,13 @@ exports[`appTest App should be rendered correct 1`] = `
         </article>
       </div>
     </section>
+    <div
+      className="cities__right-section"
+    >
+      <div
+        className="cities__map"
+      />
+    </div>
   </div>
 </div>
 `;
