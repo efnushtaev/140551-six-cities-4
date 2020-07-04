@@ -1,5 +1,6 @@
 import React from 'react';
 import leaflet from 'leaflet';
+import PropTypes from 'prop-types';
 
 class Map extends React.PureComponent {
   constructor(props) {
@@ -7,7 +8,7 @@ class Map extends React.PureComponent {
     this.state = {
       city: [52.38333, 4.9],
       zoom: 12,
-      offerCords: [52.3709553943508, 4.89309666406198]
+      offerCords: [[52.3709553943508, 4.89309666406198], [52.3909553943508, 4.929309666406198]]
     };
   }
 
@@ -36,9 +37,12 @@ class Map extends React.PureComponent {
       iconUrl: `img/pin.svg`,
       iconSize: [30, 30]
     });
-    leaflet
-      .marker(offerCords, {icon})
-      .addTo(map);
+
+    for (let i = 0; i <= offerCords.length; i++) {
+      leaflet
+        .marker(offerCords[i], {icon})
+        .addTo(map);
+    }
   }
 
   componentDidMount() {
@@ -49,5 +53,11 @@ class Map extends React.PureComponent {
     return <div className="cities__map" id="map"></div>;
   }
 }
+
+Map.propTypes = {
+  city: PropTypes.array,
+  zoom: PropTypes.number.isRequired,
+  offerCords: PropTypes.arrayOf(PropTypes.array),
+};
 
 export default Map;
