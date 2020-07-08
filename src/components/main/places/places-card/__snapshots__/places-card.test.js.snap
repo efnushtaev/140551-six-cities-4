@@ -1,17 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`PlaceCard renders correctly 1`] = `
-<article
-  className="cities__place-card place-card"
-  onMouseOver={[Function]}
->
+Array [
   <div
     className="place-card__mark"
   >
     <span>
       Premium
     </span>
-  </div>
+  </div>,
   <div
     className="cities__image-wrapper place-card__image-wrapper"
   >
@@ -26,7 +23,7 @@ exports[`PlaceCard renders correctly 1`] = `
         width="260"
       />
     </a>
-  </div>
+  </div>,
   <div
     className="place-card__info"
   >
@@ -102,6 +99,6 @@ exports[`PlaceCard renders correctly 1`] = `
     >
       Apartment
     </p>
-  </div>
-</article>
+  </div>,
+]
 `;

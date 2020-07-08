@@ -1,11 +1,11 @@
 import React from 'react';
 
-const TabsItem = ({title}) => {
+const TabsItem = () => {
   return (
     <a className="locations__item-link tabs__item" href="#">
-      <span>{title}</span>
+      <span>title</span>
     </a>
-  )
+  );
 };
 
 export default TabsItem;

@@ -2,10 +2,10 @@
 
 exports[`PlaceCard renders correctly 1`] = `
 <div
-  className="cities__places-list places__list tabs__content"
+  className=" places__list tabs__content"
 >
   <article
-    className="cities__place-card place-card"
+    className=" place-card"
     onMouseOver={[Function]}
   >
     <div
@@ -106,9 +106,10 @@ exports[`PlaceCard renders correctly 1`] = `
         Apartment
       </p>
     </div>
+    ;
   </article>
   <article
-    className="cities__place-card place-card"
+    className=" place-card"
     onMouseOver={[Function]}
   >
     <div
@@ -209,6 +210,7 @@ exports[`PlaceCard renders correctly 1`] = `
         Apartment
       </p>
     </div>
+    ;
   </article>
 </div>
 `;

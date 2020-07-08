@@ -30,6 +30,7 @@ it(`PlaceCard renders correctly`, () => {
   const handlePlaceCardMouseOver = jest.fn();
   const tree = renderer
       .create(<PlacesList
+        className=''
         mock={mock}
         onPlaceCardMouseOver={handlePlaceCardMouseOver}/>)
       .toJSON();
