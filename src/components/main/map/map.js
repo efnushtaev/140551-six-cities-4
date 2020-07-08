@@ -18,7 +18,7 @@ class MapContainer extends React.PureComponent {
 
   render() {
     const {city, zoom, offerCords} = this.state;
-    return <div className="cities__map">
+    return <div style={{height: `100%`, width: `100%`}} className="cities__map">
       <Map style={{height: `100%`, width: `100%`}} center={city} zoom={zoom}>
         <TileLayer
           url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png"

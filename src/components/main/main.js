@@ -1,20 +1,17 @@
 import React from 'react';
-// import PropTypes from 'prop-types';
-import mock from './../../mock/offers';
-import PlacesList from './places-list/places-list';
-import Map from './map/map';
+import CitiesPlaces from './cities-places/cities-places';
+import {Switch, Route} from 'react-router-dom';
+import PropertyPage from './property/property-page';
+import Favorites from './favorites/favorites';
+import LoginPage from './login-page/login-page';
 
 const Main = () => {
-  return <div className="cities">
-    <div className="cities__places-container container">
-      <section className="cities__places places">
-        <PlacesList mock={mock} onPlaceCardMouseOver={()=>{}} />
-      </section>
-      <div className="cities__right-section">
-        <Map/>
-      </div>
-    </div>
-  </div>;
+  return <Switch>
+    <Route exact path={`/`} render={() => <CitiesPlaces/>} />
+    <Route exact path={`/property`} render={() => <PropertyPage/>} />
+    <Route exact path={`/favorites`} render={() => <Favorites/>} />
+    <Route exact path={`/login`} render={() => <LoginPage/>} />
+  </Switch>;
 };
 
 export default Main;

@@ -1,19 +1,26 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import PlaceCard from '../place-card/place-card';
+import PlacesCard from '../places-card/places-card';
 
-const PlacesList = ({mock, onPlaceCardMouseOver}) => {
-  return <div className="cities__places-list places__list tabs__content">
+const PlacesList = (props) => {
+  const {className: {classNameDiv = ``, classNameArticle = ``}, mock, onPlaceCardMouseOver} = props;
+
+  return <div className={`${classNameDiv} places__list tabs__content`}>
     {mock.map((e) => {
-      return <PlaceCard
-        mock={e}
-        key={e.id}
-        onPlaceCardMouseOver={onPlaceCardMouseOver}/>;
+      return <article key={e.id} onMouseOver={() => {
+        onPlaceCardMouseOver(e.id);
+      }} className={`${classNameArticle} place-card`}>
+        <PlacesCard
+          mock={e}
+          key={e.id}
+          onPlaceCardMouseOver={onPlaceCardMouseOver}/>;
+      </article>;
     })}
   </div>;
 };
 
 PlacesList.propTypes = {
+  className: PropTypes.object,
   onPlaceCardMouseOver: PropTypes.func.isRequired,
   mock: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number.isRequired,

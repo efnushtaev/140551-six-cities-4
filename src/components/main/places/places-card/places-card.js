@@ -2,16 +2,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const PlaceCard = ({mock, onPlaceCardMouseOver}) => {
+const PlacesCard = ({mock, onPlaceCardMouseOver}) => {
   const {id, srcLink, picture, info: {price, raiting, name, type}} = mock;
 
   const calculateRaiting = (r) => {
     return 20 * r;
   };
 
-  return <article onMouseOver={() => {
-    onPlaceCardMouseOver(id);
-  }} className="cities__place-card place-card">
+  return <>
     <div className="place-card__mark">
       <span>Premium</span>
     </div>
@@ -44,10 +42,10 @@ const PlaceCard = ({mock, onPlaceCardMouseOver}) => {
       </h2>
       <p className="place-card__type">{type}</p>
     </div>
-  </article>;
+</>
 };
 
-PlaceCard.propTypes = {
+PlacesCard.propTypes = {
   onPlaceCardMouseOver: PropTypes.func.isRequired,
   mock: PropTypes.shape({
     id: PropTypes.number.isRequired,
@@ -62,4 +60,4 @@ PlaceCard.propTypes = {
   })
 };
 
-export default PlaceCard;
+export default PlacesCard;

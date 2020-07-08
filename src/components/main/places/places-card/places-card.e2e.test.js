@@ -1,7 +1,7 @@
 import React from 'react';
 import {configure, shallow} from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
-import PlaceCard from './place-card';
+import PlacesCard from './places-card';
 import {expect, it} from '@jest/globals';
 
 configure({adapter: new Adapter()});
@@ -20,7 +20,7 @@ const mock = {
 
 it(`Mouse over event`, () => {
   const handlePlaceCardMouseOver = jest.fn();
-  const tree = shallow(<PlaceCard
+  const tree = shallow(<PlacesCard
     mock={mock}
     onPlaceCardMouseOver={handlePlaceCardMouseOver}/>
   );

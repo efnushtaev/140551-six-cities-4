@@ -1,5 +1,5 @@
 import React from 'react';
-import PlaceCard from './place-card';
+import PlacesCard from './places-card';
 import renderer from 'react-test-renderer';
 import {expect, it} from '@jest/globals';
 
@@ -18,7 +18,7 @@ const mock = {
 it(`PlaceCard renders correctly`, () => {
   const handlePlaceCardMouseOver = jest.fn();
   const tree = renderer
-      .create(<PlaceCard
+      .create(<PlacesCard
         mock={mock}
         onPlaceCardMouseOver={handlePlaceCardMouseOver}/>)
       .toJSON();
