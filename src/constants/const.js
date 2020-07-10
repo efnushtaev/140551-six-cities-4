@@ -1,6 +1,6 @@
 export const SortType = {
-  popular: `popular`,
-  priceLowToHigh: `priceLowToHigh`,
-  priceHighToLow: `priceHighToLow`,
-  topRatedFirst: `topRatedFirst`
-}
+  popular: `Popular`,
+  priceLowToHigh: `Price: low to high`,
+  priceHighToLow: `Price: high to low`,
+  topRatedFirst: `Top raited first`
+};

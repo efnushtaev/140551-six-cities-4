@@ -1,5 +1,6 @@
 import React from 'react';
-import { SortType } from '../../../../constants/const';
+import {SortType} from '../../../../constants/const';
+import PropTypes from 'prop-types';
 
 class PlacesSort extends React.PureComponent {
   constructor(props) {
@@ -14,7 +15,7 @@ class PlacesSort extends React.PureComponent {
   handleOpenList() {
     this.setState((prevState) => ({
       isOpened: !prevState.isOpened
-    }))
+    }));
   }
 
   handleChangeSortType(e) {
@@ -41,6 +42,11 @@ class PlacesSort extends React.PureComponent {
       </form>
     );
   }
+}
+
+PlacesSort.propTypes = {
+  onChangeSortType: PropTypes.func.isRequired,
+  sortType: PropTypes.array.isRequired,
 };
 
 export default PlacesSort;

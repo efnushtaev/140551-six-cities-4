@@ -1,4 +1,4 @@
-/* eslint-disable react/prop-types */
+/* eslint-disable camelcase */
 import React from 'react';
 import PropTypes from 'prop-types';
 
@@ -42,19 +42,16 @@ const PlacesCard = ({offer}) => {
       </h2>
       <p className="place-card__type">{type}</p>
     </div>
-</>;
+  </>;
 };
 
 PlacesCard.propTypes = {
-  mock: PropTypes.shape({
-    srcLink: PropTypes.string.isRequired,
-    picture: PropTypes.string.isRequired,
-    info: PropTypes.shape({
-      price: PropTypes.number.isRequired,
-      raiting: PropTypes.number.isRequired,
-      name: PropTypes.string.isRequired,
-      type: PropTypes.string.isRequired,
-    })
+  offer: PropTypes.shape({
+    preview_image: PropTypes.string.isRequired,
+    price: PropTypes.string.isRequired,
+    raiting: PropTypes.number.isRequired,
+    name: PropTypes.string.isRequired,
+    type: PropTypes.string.isRequired,
   })
 };
 

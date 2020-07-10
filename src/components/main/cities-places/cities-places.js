@@ -6,6 +6,7 @@ import PlacesSort from './places-sort/places-sort';
 import {getOffers} from '../../../redux/selectors/offer-selectors';
 import {connect} from 'react-redux';
 import {SortType} from '../../../constants/const';
+import PropTypes from 'prop-types';
 
 class CitiesPlaces extends React.PureComponent {
   constructor(props) {
@@ -13,10 +14,10 @@ class CitiesPlaces extends React.PureComponent {
     this.state = {
       sortType: SortType.popular
     };
-    this._setSortType = this._setSortType.bind(this)
+    this._setSortType = this.setSortType.bind(this);
   }
 
-  _setSortType(type) {
+  setSortType(type) {
     this.setState({sortType: type});
   }
 
@@ -31,7 +32,7 @@ class CitiesPlaces extends React.PureComponent {
             <h2 className="visually-hidden">Places</h2>
             <b className="places__found">312 places to stay in Amsterdam</b>
             <PlacesSort
-              onChangeSortType={this._setSortType}
+              onChangeSortType={this.setSortType}
               sortType={this.state.sortType}
             />
             <PlacesListCities
@@ -52,5 +53,9 @@ class CitiesPlaces extends React.PureComponent {
 let mapStateToProps = (state) => ({
   offers: getOffers(state)
 });
+
+CitiesPlaces.propTypes = {
+  offers: PropTypes.arrayOf(PropTypes.object).isRequired
+};
 
 export default connect(mapStateToProps, {})(CitiesPlaces);

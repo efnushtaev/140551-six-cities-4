@@ -9,7 +9,6 @@ class PlacesList extends React.PureComponent {
   }
 
   _getSortedOffers(offers, sortType) {
-    debugger
     switch (sortType) {
       case SortType.priceLowToHigh:
         return offers.sort((a, b) => {
@@ -34,7 +33,6 @@ class PlacesList extends React.PureComponent {
   render() {
     return <div className={`${this.props.className.classNameDiv} places__list tabs__content`}>
       {this._getSortedOffers(this.props.offers, this.props.sortType).map((e) => {
-        debugger
         return <article key={e.id} onMouseOver={() => {
           this.props.onPlaceCardMouseOver(e.id);
         }} className={`${this.props.className.classNameArticle} place-card`}>
@@ -45,9 +43,10 @@ class PlacesList extends React.PureComponent {
       })}
     </div>;
   }
-};
+}
 
 PlacesList.propTypes = {
+  sortType: PropTypes.string.isRequired,
   className: PropTypes.object,
   onPlaceCardMouseOver: PropTypes.func.isRequired,
   offers: PropTypes.arrayOf(PropTypes.shape({

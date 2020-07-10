@@ -32,7 +32,7 @@ const initialState = {
     "max_adults": 4,
     "preview_image": `img/1.png`,
     "price": 130,
-    "rating": 4.8,
+    "rating": 4.2,
     "title": `Beautiful & luxurious studio at great location`,
     "type": `apartment`
   },
@@ -54,7 +54,7 @@ const initialState = {
       "is_pro": true,
       "name": `Angelina`
     },
-    "id": 1,
+    "id": 2,
     "images": [`img/1.png`, `img/2.png`],
     "is_favorite": false,
     "is_premium": false,
@@ -88,7 +88,7 @@ const initialState = {
       "is_pro": true,
       "name": `Angelina`
     },
-    "id": 1,
+    "id": 3,
     "images": [`img/1.png`, `img/2.png`],
     "is_favorite": false,
     "is_premium": false,
@@ -110,7 +110,9 @@ const Actions = {
   SET_CURRENT_CITY: `offer/SET_CURRENT_CITY`
 };
 
-export const setCurrentCity = (payload) => ({type: Actions.SET_CURRENT_CITY, payload});
+export const ActionCreater = {
+  setCurrentCity: (payload) => ({type: Actions.SET_CURRENT_CITY, payload})
+};
 
 const offersReducer = (state = initialState, action) => {
   switch (action.type) {
