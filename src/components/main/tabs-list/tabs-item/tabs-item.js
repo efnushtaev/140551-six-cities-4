@@ -1,9 +1,13 @@
 import React from 'react';
 
-const TabsItem = () => {
+const TabsItem = ({title, onSetCurrentCity, currentCity}) => {
+  const handleSetCurrentCity = (e, title) => {
+    e.preventDefault();
+    onSetCurrentCity(title);
+  }
   return (
-    <a className="locations__item-link tabs__item" href="#">
-      <span>title</span>
+    <a onClick={(e) => handleSetCurrentCity(e, title)} className={`locations__item-link tabs__item` + (currentCity === title ? ` tabs__item--active` : ``)} href="#">
+      <span>{title}</span>
     </a>
   );
 };
