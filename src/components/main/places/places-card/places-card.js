@@ -2,8 +2,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const PlacesCard = ({mock}) => {
-  const {srcLink, picture, info: {price, raiting, name, type}} = mock;
+const PlacesCard = ({offer}) => {
+  const {preview_image, price, raiting, name, type} = offer;
 
   const calculateRaiting = (r) => {
     return 20 * r;
@@ -14,8 +14,8 @@ const PlacesCard = ({mock}) => {
       <span>Premium</span>
     </div>
     <div className="cities__image-wrapper place-card__image-wrapper">
-      <a href={srcLink}>
-        <img className="place-card__image" src={picture} width="260" height="200" alt="Place image"/>
+      <a href="#">
+        <img className="place-card__image" src={preview_image} width="260" height="200" alt="Place image"/>
       </a>
     </div>
     <div className="place-card__info">
