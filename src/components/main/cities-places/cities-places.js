@@ -14,7 +14,7 @@ class CitiesPlaces extends React.PureComponent {
     this.state = {
       sortType: SortType.popular
     };
-    this._setSortType = this.setSortType.bind(this);
+    this.setSortType = this.setSortType.bind(this);
   }
 
   setSortType(type) {

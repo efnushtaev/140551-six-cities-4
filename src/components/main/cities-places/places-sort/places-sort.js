@@ -46,7 +46,7 @@ class PlacesSort extends React.PureComponent {
 
 PlacesSort.propTypes = {
   onChangeSortType: PropTypes.func.isRequired,
-  sortType: PropTypes.array.isRequired,
+  sortType: PropTypes.string.isRequired,
 };
 
 export default PlacesSort;

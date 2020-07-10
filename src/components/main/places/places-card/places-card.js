@@ -3,7 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const PlacesCard = ({offer}) => {
-  const {preview_image, price, raiting, name, type} = offer;
+  const {preview_image, price, rating, title, type} = offer;
 
   const calculateRaiting = (r) => {
     return 20 * r;
@@ -33,12 +33,12 @@ const PlacesCard = ({offer}) => {
       </div>
       <div className="place-card__rating rating">
         <div className="place-card__stars rating__stars">
-          <span style={{width: `${calculateRaiting(raiting)}%`}}></span>
+          <span style={{width: `${calculateRaiting(rating)}%`}}></span>
           <span className="visually-hidden">Rating</span>
         </div>
       </div>
       <h2 className="place-card__name">
-        <a href="#">{name}</a>
+        <a href="#">{title}</a>
       </h2>
       <p className="place-card__type">{type}</p>
     </div>
@@ -48,9 +48,9 @@ const PlacesCard = ({offer}) => {
 PlacesCard.propTypes = {
   offer: PropTypes.shape({
     preview_image: PropTypes.string.isRequired,
-    price: PropTypes.string.isRequired,
-    raiting: PropTypes.number.isRequired,
-    name: PropTypes.string.isRequired,
+    price: PropTypes.number.isRequired,
+    rating: PropTypes.number.isRequired,
+    title: PropTypes.string.isRequired,
     type: PropTypes.string.isRequired,
   })
 };
