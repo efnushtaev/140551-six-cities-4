@@ -2,6 +2,8 @@ const initialState = {
   city: [`Paris`, `Cologne`, `Brussels`, `Amsterdam`, `Hamburg`, `Dusseldorf`],
   currentCity: `Amsterdam`,
   offersSortType: 0,
+  filteredOffers: [],
+  pinData: [],
   offers: [{
     "bedrooms": 3,
     "city": {
@@ -25,8 +27,8 @@ const initialState = {
     "is_favorite": false,
     "is_premium": false,
     "location": {
-      "latitude": 52.35514938496378,
-      "longitude": 4.673877537499948,
+      "latitude": 52.5514938496378,
+      "longitude": 4.1738775378,
       "zoom": 8
     },
     "max_adults": 4,
@@ -107,11 +109,15 @@ const initialState = {
 };
 
 const Actions = {
-  SET_CURRENT_CITY: `offer/SET_CURRENT_CITY`
+  SET_CURRENT_CITY: `offer/SET_CURRENT_CITY`,
+  SET_FILTERED_OFFERS: `offers/SET_FILTERED_OFFERS`,
+  SET_PIN_DATA: `offers/SET_PIN_DATA`
 };
 
 export const ActionCreater = {
-  setCurrentCity: (payload) => ({type: Actions.SET_CURRENT_CITY, payload})
+  setCurrentCity: (payload) => ({type: Actions.SET_CURRENT_CITY, payload}),
+  setFilteredOffers: (payload) => ({type: Actions.SET_FILTERED_OFFERS, payload}),
+  setPinData: (payload) => ({type: Actions.SET_PIN_DATA, payload}),
 };
 
 const offersReducer = (state = initialState, action) => {
@@ -120,6 +126,18 @@ const offersReducer = (state = initialState, action) => {
       return Object.assign({},
           state,
           {currentCity: action.payload}
+      );
+    }
+    case Actions.SET_FILTERED_OFFERS: {
+      return Object.assign({},
+          state,
+          {filteredOffers: action.payload}
+      );
+    }
+    case Actions.SET_PIN_DATA: {
+      return Object.assign({},
+          state,
+          {pinData: action.payload}
       );
     }
     default: return state;

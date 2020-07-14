@@ -1,43 +1,72 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Map, Marker, Popup, TileLayer} from 'react-leaflet';
+import {Map, Marker, TileLayer} from 'react-leaflet';
+import L from 'leaflet';
 
 class MapContainer extends React.PureComponent {
   constructor(props) {
     super(props);
-    this.state = {
-      city: [52.38333, 4.9],
-      zoom: 12,
-      offerCords: [
-        [52.3709553943508, 4.89309666406198],
-        [52.3909553943508, 4.929309666406198]
-      ]
-    };
     this.map = null;
+    this.state = {
+      activeIcon: false
+    }
+  }
+
+  componentDidMount() {
+    this.props.setPinData(this.props.pinData)
+  }
+
+  shouldComponentUpdate(prevProps) {
+    return this.props.activePin !== prevProps.activePin 
+      || this.props.currentCity !== prevProps.currentCity
+  }
+
+  componentDidUpdate(prevProps) {
+    if(this.props.currentCity !== prevProps.currentCity) {
+      return this.props.setPinData(this.props.pinData)
+    }
   }
 
   render() {
-    const {city, zoom, offerCords} = this.state;
+    const myIcon = new L.Icon({
+      iconUrl: 'img/pin.svg',
+      iconSize: null,
+      iconAnchor: null,
+      popupAnchor: [-3, -76],
+      shadowUrl: null,
+      shadowSize: null,
+      shadowAnchor: null
+    });
+
+    const myIconActive = new L.Icon({
+      iconUrl: 'img/pin-active.svg',
+      iconSize: null,
+      iconAnchor: null,
+      popupAnchor: [-3, -76],
+      shadowUrl: null,
+      shadowSize: null,
+      shadowAnchor: null
+    });
+
+    const {cityLocation, pinData, cityZoom, activePin} = this.props;
     return <div style={{height: `100%`, width: `100%`}} className="cities__map">
-      <Map style={{height: `100%`, width: `100%`}} center={city} zoom={zoom}>
+      <Map style={{height: `100%`, width: `100%`}} center={cityLocation} zoom={cityZoom}>
         <TileLayer
           url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png"
           attribution={`&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>`}
         />
-        {offerCords.map((e) => {
-          return <Marker key={e} position={e}>
-            <Popup>A pretty CSS3 popup.<br />Easily customizable.</Popup>
-          </Marker>;
+        {pinData.map((e, i) => {
+          return <Marker key={e.id + i} icon={activePin === e.id ? myIconActive : myIcon} position={e.locationPair} />
         })}
       </Map>
     </div>;
   }
 }
 
-Map.propTypes = {
-  city: PropTypes.array,
-  zoom: PropTypes.number,
-  offerCords: PropTypes.arrayOf(PropTypes.array),
+MapContainer.propTypes = {
+  cityZoom: PropTypes.number,
+  hotelsLocation: PropTypes.arrayOf(PropTypes.array).isRequired,
+  cityLocation: PropTypes.array.isRequired,
 };
 
 export default MapContainer;

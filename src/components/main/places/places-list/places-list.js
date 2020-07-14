@@ -3,12 +3,26 @@ import PropTypes from 'prop-types';
 import PlacesCard from '../places-card/places-card';
 import {SortType} from '../../../../constants/const';
 
-class PlacesList extends React.PureComponent {
+class PlacesList extends React.Component {
   constructor(props) {
     super(props);
   }
 
-  _getSortedOffers(offers, sortType) {
+  componentDidMount() {
+    this.props.setFilteredOffers(this.props.offers)
+  }
+
+  componentDidUpdate(prevProps) {
+    if(this.props.currentCity !== prevProps.currentCity) {
+      this.props.setFilteredOffers(this.props.offers);
+    }
+  }
+
+  shouldComponentUpdate(prevProps) {
+    return this.props.currentCity !== prevProps.currentCity || this.props.sortType !== prevProps.sortType;
+  }
+
+  _getfilteredOffers(offers, sortType) {
     switch (sortType) {
       case SortType.priceLowToHigh:
         return offers.sort((a, b) => {
@@ -32,10 +46,15 @@ class PlacesList extends React.PureComponent {
 
   render() {
     return <div className={`${this.props.className.classNameDiv} places__list tabs__content`}>
-      {this._getSortedOffers(this.props.offers, this.props.sortType).map((e) => {
-        return <article key={e.id} onMouseOver={() => {
-          this.props.onPlaceCardMouseOver(e.id);
-        }} className={`${this.props.className.classNameArticle} place-card`}>
+      {this._getfilteredOffers(this.props.offers, this.props.sortType).map((e) => {
+        return <article key={e.id} 
+          onMouseOver={() => {
+            this.props.setActivePin(e.id);
+          }}
+          onMouseLeave={() => {
+            this.props.setActivePin(null);
+          }}
+          className={`${this.props.className.classNameArticle} place-card`}>
           <PlacesCard
             offer={e}
             key={e.id}/>;
