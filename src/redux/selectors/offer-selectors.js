@@ -40,4 +40,4 @@ export const getCityZoom = (state) => {
   if (curentOffersCount > 0) {
     return getOffers(state)[0].city.location.zoom;
   } return null;
-}
+};

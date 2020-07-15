@@ -9,11 +9,11 @@ class PlacesList extends React.Component {
   }
 
   componentDidMount() {
-    this.props.setFilteredOffers(this.props.offers)
+    this.props.setFilteredOffers(this.props.offers);
   }
 
   componentDidUpdate(prevProps) {
-    if(this.props.currentCity !== prevProps.currentCity) {
+    if (this.props.currentCity !== prevProps.currentCity) {
       this.props.setFilteredOffers(this.props.offers);
     }
   }
@@ -47,7 +47,7 @@ class PlacesList extends React.Component {
   render() {
     return <div className={`${this.props.className.classNameDiv} places__list tabs__content`}>
       {this._getfilteredOffers(this.props.offers, this.props.sortType).map((e) => {
-        return <article key={e.id} 
+        return <article key={e.id}
           onMouseOver={() => {
             this.props.setActivePin(e.id);
           }}
@@ -65,6 +65,9 @@ class PlacesList extends React.Component {
 }
 
 PlacesList.propTypes = {
+  setActivePin: PropTypes.func.isRequired,
+  setFilteredOffers: PropTypes.func.isRequired,
+  currentCity: PropTypes.string.isRequired,
   sortType: PropTypes.string.isRequired,
   className: PropTypes.object,
   onPlaceCardMouseOver: PropTypes.func.isRequired,

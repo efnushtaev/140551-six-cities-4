@@ -9,27 +9,26 @@ class MapContainer extends React.PureComponent {
     this.map = null;
     this.state = {
       activeIcon: false
-    }
+    };
   }
 
   componentDidMount() {
-    this.props.setPinData(this.props.pinData)
+    this.props.setPinData(this.props.pinData);
   }
 
   shouldComponentUpdate(prevProps) {
-    return this.props.activePin !== prevProps.activePin 
-      || this.props.currentCity !== prevProps.currentCity
+    return this.props.activePin !== prevProps.activePin
+      || this.props.currentCity !== prevProps.currentCity;
   }
 
   componentDidUpdate(prevProps) {
-    if(this.props.currentCity !== prevProps.currentCity) {
-      return this.props.setPinData(this.props.pinData)
-    }
+    return this.props.currentCity !== prevProps.currentCity
+      && this.props.setPinData(this.props.pinData);
   }
 
   render() {
     const myIcon = new L.Icon({
-      iconUrl: 'img/pin.svg',
+      iconUrl: `img/pin.svg`,
       iconSize: null,
       iconAnchor: null,
       popupAnchor: [-3, -76],
@@ -39,7 +38,7 @@ class MapContainer extends React.PureComponent {
     });
 
     const myIconActive = new L.Icon({
-      iconUrl: 'img/pin-active.svg',
+      iconUrl: `img/pin-active.svg`,
       iconSize: null,
       iconAnchor: null,
       popupAnchor: [-3, -76],
@@ -56,7 +55,7 @@ class MapContainer extends React.PureComponent {
           attribution={`&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>`}
         />
         {pinData.map((e, i) => {
-          return <Marker key={e.id + i} icon={activePin === e.id ? myIconActive : myIcon} position={e.locationPair} />
+          return <Marker key={e.id + i} icon={activePin === e.id ? myIconActive : myIcon} position={e.locationPair}/>;
         })}
       </Map>
     </div>;
@@ -67,6 +66,10 @@ MapContainer.propTypes = {
   cityZoom: PropTypes.number,
   hotelsLocation: PropTypes.arrayOf(PropTypes.array).isRequired,
   cityLocation: PropTypes.array.isRequired,
+  pinData: PropTypes.arrayOf(PropTypes.array),
+  setPinData: PropTypes.func.isRequired,
+  activePin: PropTypes.number.isRequired,
+  currentCity: PropTypes.string.isRequired
 };
 
 export default MapContainer;

@@ -8,6 +8,7 @@ import {connect} from 'react-redux';
 import {SortType} from '../../../constants/const';
 import PropTypes from 'prop-types';
 import {ActionCreater} from '../../../redux/reducers/offers-reducer';
+import {MainEmpty} from '../main-empty/main-empty';
 
 class CitiesPlaces extends React.PureComponent {
   constructor(props) {
@@ -43,7 +44,9 @@ class CitiesPlaces extends React.PureComponent {
       setPinData
     } = this.props;
 
-    return <div className='page__main page__main--index'>
+    return <div className={offers.length === 0
+      ? `page__main page__main--index page__main--index-empty`
+      : `page__main page__main--index`} >
       <div className="tabs">
         <TabsList />
       </div>
@@ -52,7 +55,9 @@ class CitiesPlaces extends React.PureComponent {
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{offers ? this._getPlacesCount(offers) : `0`} places to stay in Amsterdam</b>
+              <b className="places__found">
+                {this._getPlacesCount(offers)} places to stay in Amsterdam
+              </b>
               <PlacesSort
                 onChangeSortType={this.setSortType}
                 sortType={this.state.sortType}
@@ -77,7 +82,7 @@ class CitiesPlaces extends React.PureComponent {
             </div>
           </div>
         </div>
-        : <div>null</div>
+        : <MainEmpty />
       }
     </div>;
   }
@@ -101,10 +106,14 @@ let mapDispatchToProps = (dispatch) => ({
 });
 
 CitiesPlaces.propTypes = {
+  currentCity: PropTypes.string.isRequired,
+  pinData: PropTypes.arrayOf(PropTypes.array),
   offers: PropTypes.arrayOf(PropTypes.object),
   cityLocation: PropTypes.array,
   hotelsLocation: PropTypes.arrayOf(PropTypes.array),
-  cityZoom: PropTypes.number
+  cityZoom: PropTypes.number,
+  setFilteredOffers: PropTypes.func,
+  setPinData: PropTypes.func
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(CitiesPlaces);
