@@ -1,50 +1,33 @@
 import React from 'react';
 import PlacesListCities from './../places/places-list/places-list--cities';
-import Map from './../map/map';
 import TabsList from '../tabs-list/tabs-list';
-import PlacesSort from './places-sort/places-sort';
 import {getOffers, getCityLocation, getCityZoom, getCurrentCity, getPinData} from '../../../redux/selectors/offer-selectors';
 import {connect} from 'react-redux';
-import {SortType} from '../../../constants/const';
 import PropTypes from 'prop-types';
 import {ActionCreater} from '../../../redux/reducers/offers-reducer';
-import {MainEmpty} from '../main-empty/main-empty';
+import MainEmpty from '../main-empty/main-empty';
+import {compose} from 'redux';
+import withMap from '../../../hoc/with-map';
+import withActivePin from '../../../hoc/with-active-pin';
+import withSorting from '../../../hoc/with-sorting';
 
-class CitiesPlaces extends React.PureComponent {
-  constructor(props) {
-    super(props);
-    this.state = {
-      sortType: SortType.popular,
-      activePin: null
-    };
-    this.setSortType = this.setSortType.bind(this);
-    this.setActivePin = this.setActivePin.bind(this);
-  }
-
-  setSortType(type) {
-    this.setState({sortType: type});
-  }
-
-  setActivePin(id) {
-    this.setState({activePin: id});
-  }
-
-  _getPlacesCount(offers) {
+const CitiesPlaces = (props) => {
+  const {
+    offers,
+    currentCity,
+    renderMap,
+    renderSortList,
+    sortType,
+    activePin,
+    setActivePin,
+    setSortType,
+    setFilteredOffers,
+  } = props;
+  const _getPlacesCount = () => {
     return offers.length;
-  }
-
-  render() {
-    const {
-      offers,
-      cityLocation,
-      pinData,
-      cityZoom,
-      currentCity,
-      setFilteredOffers,
-      setPinData
-    } = this.props;
-
-    return <div className={offers.length === 0
+  };
+  return (
+    <div className={offers.length === 0
       ? `page__main page__main--index page__main--index-empty`
       : `page__main page__main--index`} >
       <div className="tabs">
@@ -56,37 +39,27 @@ class CitiesPlaces extends React.PureComponent {
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
               <b className="places__found">
-                {this._getPlacesCount(offers)} places to stay in Amsterdam
+                {_getPlacesCount()} places to stay in Amsterdam
               </b>
-              <PlacesSort
-                onChangeSortType={this.setSortType}
-                sortType={this.state.sortType}
-              />
+              {renderSortList(sortType, setSortType)}
               <PlacesListCities
-                sortType={this.state.sortType}
+                sortType={sortType}
                 offers={offers}
                 currentCity={currentCity}
-                setActivePin={this.setActivePin}
+                setActivePin={setActivePin}
                 setFilteredOffers={setFilteredOffers}
               />
             </section>
             <div className="cities__right-section">
-              <Map
-                cityLocation={cityLocation}
-                pinData={pinData}
-                cityZoom={cityZoom}
-                activePin={this.state.activePin}
-                currentCity={currentCity}
-                setPinData={setPinData}
-              />
+              {renderMap(activePin)}
             </div>
           </div>
         </div>
         : <MainEmpty />
       }
-    </div>;
-  }
-}
+    </div>
+  );
+};
 
 let mapStateToProps = (state) => ({
   offers: getOffers(state),
@@ -99,9 +72,6 @@ let mapStateToProps = (state) => ({
 let mapDispatchToProps = (dispatch) => ({
   setFilteredOffers(payload) {
     dispatch(ActionCreater.setFilteredOffers(payload));
-  },
-  setPinData(payload) {
-    dispatch(ActionCreater.setPinData(payload));
   }
 });
 
@@ -109,11 +79,19 @@ CitiesPlaces.propTypes = {
   currentCity: PropTypes.string.isRequired,
   pinData: PropTypes.arrayOf(PropTypes.array),
   offers: PropTypes.arrayOf(PropTypes.object),
-  cityLocation: PropTypes.array,
-  hotelsLocation: PropTypes.arrayOf(PropTypes.array),
-  cityZoom: PropTypes.number,
+  sortType: PropTypes.string.isRequired,
+  activePin: PropTypes.number,
   setFilteredOffers: PropTypes.func,
-  setPinData: PropTypes.func
+  setPinData: PropTypes.func,
+  setActivePin: PropTypes.func,
+  setSortType: PropTypes.func,
+  renderMap: PropTypes.func,
+  renderSortList: PropTypes.func,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(CitiesPlaces);
+export default compose(
+    connect(mapStateToProps, mapDispatchToProps),
+    withMap,
+    withSorting,
+    withActivePin,
+    React.memo)(CitiesPlaces);

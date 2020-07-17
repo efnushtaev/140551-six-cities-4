@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const MainEmpty = () => {
+const MainEmpty = () => {
   return <div className="cities">
     <div className="cities__places-container cities__places-container--empty container">
       <section className="cities__no-places">
@@ -14,4 +14,4 @@ export const MainEmpty = () => {
   </div>;
 };
 
-
+export default React.memo(MainEmpty);

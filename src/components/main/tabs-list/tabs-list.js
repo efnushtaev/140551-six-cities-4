@@ -4,6 +4,7 @@ import {getOffers, getCity, getCurrentCity} from '../../../redux/selectors/offer
 import {connect} from 'react-redux';
 import {ActionCreater} from '../../../redux/reducers/offers-reducer';
 import PropTypes from 'prop-types';
+import {compose} from 'redux';
 
 const TabsList = ({city, currentCity, onCurrentCityChange}) => {
   return (
@@ -37,5 +38,5 @@ TabsList.propTypes = {
   onCurrentCityChange: PropTypes.func
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(TabsList);
+export default compose(connect(mapStateToProps, mapDispatchToProps), React.memo)(TabsList);
 

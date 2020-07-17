@@ -6,12 +6,14 @@ import Favorites from './favorites/favorites';
 import LoginPage from './login-page/login-page';
 
 const Main = () => {
-  return <Switch>
-    <Route exact path={`/`} render={() => <CitiesPlaces/>} />
-    <Route exact path={`/property`} render={() => <PropertyPage/>} />
-    <Route exact path={`/favorites`} render={() => <Favorites/>} />
-    <Route exact path={`/login`} render={() => <LoginPage/>} />
-  </Switch>;
+  return (
+    <Switch>
+      <Route exact path={`/`} render={() => <CitiesPlaces/>} />
+      <Route exact path={`/property`} render={() => <PropertyPage/>} />
+      <Route exact path={`/favorites`} render={() => <Favorites/>} />
+      <Route exact path={`/login`} render={() => <LoginPage/>} />
+    </Switch>
+  );
 };
 
-export default Main;
+export default React.memo(Main);

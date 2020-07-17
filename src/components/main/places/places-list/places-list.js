@@ -22,7 +22,7 @@ class PlacesList extends React.Component {
     return this.props.currentCity !== prevProps.currentCity || this.props.sortType !== prevProps.sortType;
   }
 
-  _getfilteredOffers(offers, sortType) {
+  _getFilteredOffers(offers, sortType) {
     switch (sortType) {
       case SortType.priceLowToHigh:
         return offers.sort((a, b) => {
@@ -46,7 +46,7 @@ class PlacesList extends React.Component {
 
   render() {
     return <div className={`${this.props.className.classNameDiv} places__list tabs__content`}>
-      {this._getfilteredOffers(this.props.offers, this.props.sortType).map((e) => {
+      {this._getFilteredOffers(this.props.offers, this.props.sortType).map((e) => {
         return <article key={e.id}
           onMouseOver={() => {
             this.props.setActivePin(e.id);

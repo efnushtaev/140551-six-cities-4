@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 const PlacesCard = ({offer}) => {
   const {preview_image, price, rating, title, type} = offer;
 
-  const calculateRaiting = (r) => {
+  const _calculateRaiting = (r) => {
     return 20 * r;
   };
 
@@ -33,7 +33,7 @@ const PlacesCard = ({offer}) => {
       </div>
       <div className="place-card__rating rating">
         <div className="place-card__stars rating__stars">
-          <span style={{width: `${calculateRaiting(rating)}%`}}></span>
+          <span style={{width: `${_calculateRaiting(rating)}%`}}></span>
           <span className="visually-hidden">Rating</span>
         </div>
       </div>
@@ -55,4 +55,4 @@ PlacesCard.propTypes = {
   })
 };
 
-export default PlacesCard;
+export default React.memo(PlacesCard);

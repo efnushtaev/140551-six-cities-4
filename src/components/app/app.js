@@ -4,11 +4,11 @@ import {withRouter, Route} from 'react-router-dom';
 import Header from '../header/header';
 import Footer from '../footer/footer';
 import PropTypes from 'prop-types';
+import {compose} from 'redux';
 
 const App = (props) => {
   const {location: {pathname}} = props;
-
-  const getClassName = () => {
+  const _getClassName = () => {
     switch (pathname) {
       case `/`:
         return ` page--gray page--main`;
@@ -20,16 +20,17 @@ const App = (props) => {
         return ``;
     }
   };
-
-  return <div className={`page${getClassName()}`}>
-    <Header/>
-    <Main/>
-    <Route exact path={`/favorites`} render={() => <Footer/>} />
-  </div>;
+  return (
+    <div className={`page${_getClassName()}`}>
+      <Header/>
+      <Main/>
+      <Route exact path={`/favorites`} render={() => <Footer/>} />
+    </div>
+  );
 };
 
 App.propTypes = {
   location: PropTypes.object
 };
 
-export default withRouter(App);
+export default compose(React.memo, withRouter)(App);

@@ -3,13 +3,28 @@ import PropTypes from 'prop-types';
 import {Map, Marker, TileLayer} from 'react-leaflet';
 import L from 'leaflet';
 
-class MapContainer extends React.PureComponent {
+const myIcon = new L.Icon({
+  iconUrl: `img/pin.svg`,
+  iconSize: null,
+  iconAnchor: null,
+  popupAnchor: [-3, -76],
+  shadowUrl: null,
+  shadowSize: null,
+  shadowAnchor: null
+});
+
+const myIconActive = new L.Icon({
+  iconUrl: `img/pin-active.svg`,
+  iconSize: null,
+  iconAnchor: null,
+  popupAnchor: [-3, -76],
+  shadowUrl: null,
+  shadowSize: null,
+  shadowAnchor: null
+});
+class MapContainer extends React.Component {
   constructor(props) {
     super(props);
-    this.map = null;
-    this.state = {
-      activeIcon: false
-    };
   }
 
   componentDidMount() {
@@ -27,26 +42,6 @@ class MapContainer extends React.PureComponent {
   }
 
   render() {
-    const myIcon = new L.Icon({
-      iconUrl: `img/pin.svg`,
-      iconSize: null,
-      iconAnchor: null,
-      popupAnchor: [-3, -76],
-      shadowUrl: null,
-      shadowSize: null,
-      shadowAnchor: null
-    });
-
-    const myIconActive = new L.Icon({
-      iconUrl: `img/pin-active.svg`,
-      iconSize: null,
-      iconAnchor: null,
-      popupAnchor: [-3, -76],
-      shadowUrl: null,
-      shadowSize: null,
-      shadowAnchor: null
-    });
-
     const {cityLocation, pinData, cityZoom, activePin} = this.props;
     return <div style={{height: `100%`, width: `100%`}} className="cities__map">
       <Map style={{height: `100%`, width: `100%`}} center={cityLocation} zoom={cityZoom}>
@@ -64,7 +59,6 @@ class MapContainer extends React.PureComponent {
 
 MapContainer.propTypes = {
   cityZoom: PropTypes.number,
-  hotelsLocation: PropTypes.arrayOf(PropTypes.array).isRequired,
   cityLocation: PropTypes.array.isRequired,
   pinData: PropTypes.arrayOf(PropTypes.array),
   setPinData: PropTypes.func.isRequired,
