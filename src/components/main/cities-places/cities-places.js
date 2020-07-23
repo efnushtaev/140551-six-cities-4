@@ -4,13 +4,12 @@ import TabsList from '../tabs-list/tabs-list';
 import {getOffers, getFilteredOffers, getCurrentCityLocation, getCityZoom, getCurrentCity, getPinData} from '../../../redux/selectors/offer-selectors';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
-import {ActionCreater} from '../../../redux/reducers/offers-reducer';
+import {ActionCreaterOffers} from '../../../redux/reducers/offers-reducer';
 import MainEmpty from '../main-empty/main-empty';
 import {compose} from 'redux';
 import withMap from '../../../hoc/with-map';
 import withActivePin from '../../../hoc/with-active-pin';
 import withSorting from '../../../hoc/with-sorting';
-import withLoginRedirection from '../../../hoc/with-login-redirection';
 
 const CitiesPlaces = (props) => {
   const {
@@ -63,14 +62,13 @@ const CitiesPlaces = (props) => {
             </div>
           </div>
         </div>
-        : <MainEmpty />
+        : <p style={{fontSize: '1.4em', fontStyle: 'italic', textAlign: 'center'}}>Loading...</p>
       }
     </div>
   );
 };
 
 let mapStateToProps = (state) => {
-  console.log('rerender CitiesPlaces')
   return {
     offers: getOffers(state),
     currentCity: getCurrentCity(state),
@@ -83,13 +81,13 @@ let mapStateToProps = (state) => {
 
 let mapDispatchToProps = (dispatch) => ({
   setOffers(payload) {
-    dispatch(ActionCreater.setOffers(payload));
+    dispatch(ActionCreaterOffers.setOffers(payload));
   },
   setCurrentCity(payload) {
-    dispatch(ActionCreater.setCurrentCity(payload));
+    dispatch(ActionCreaterOffers.setCurrentCity(payload));
   },
   setCurrentCityData(payload) {
-    dispatch(ActionCreater.setCurrentCityData(payload));
+    dispatch(ActionCreaterOffers.setCurrentCityData(payload));
   }
 });
 
@@ -112,5 +110,4 @@ export default compose(
     withMap,
     withSorting,
     withActivePin,
-    withLoginRedirection,
     React.memo)(CitiesPlaces);

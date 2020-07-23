@@ -2,7 +2,7 @@ import React from 'react';
 import TabsItem from './tabs-item/tabs-item';
 import {getCitysList, getCurrentCity} from '../../../redux/selectors/offer-selectors';
 import {connect} from 'react-redux';
-import {ActionCreater} from '../../../redux/reducers/offers-reducer';
+import {ActionCreaterOffers} from '../../../redux/reducers/offers-reducer';
 import PropTypes from 'prop-types';
 import {compose} from 'redux';
 
@@ -27,7 +27,7 @@ let mapStateToProps = (state) => ({
 
 let mapDispatchToProps = (dispatch) => ({
   setCurrentCity(payload) {
-    dispatch(ActionCreater.setCurrentCity(payload));
+    dispatch(ActionCreaterOffers.setCurrentCity(payload));
   }
 });
 

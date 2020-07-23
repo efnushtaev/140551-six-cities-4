@@ -1,4 +1,6 @@
 import React from 'react';
+import withLoginRedirection from '../../../hoc/with-login-redirection';
+import { compose } from 'redux';
 
 const Favorites = () => {
   return <div className="page__favorites-container container">
@@ -52,4 +54,4 @@ const Favorites = () => {
   </div>;
 };
 
-export default Favorites;
+export default compose(withLoginRedirection)(Favorites);

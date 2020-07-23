@@ -5,8 +5,11 @@ import Header from '../header/header';
 import Footer from '../footer/footer';
 import PropTypes from 'prop-types';
 import {compose} from 'redux';
+import {connect} from 'react-redux';
+import {getAuthStatus} from '../../redux/selectors/auth-selectors';
 
 const App = (props) => {
+
   const {location: {pathname}} = props;
   const _getClassName = () => {
     switch (pathname) {
@@ -30,7 +33,14 @@ const App = (props) => {
 };
 
 App.propTypes = {
-  location: PropTypes.object
+  location: PropTypes.object,
 };
 
-export default compose(React.memo, withRouter)(App);
+let mapStateToProps = (state) => ({
+  isAuth: getAuthStatus(state)
+})
+
+export default compose(
+    connect(mapStateToProps, {}),
+    React.memo,
+    withRouter)(App);

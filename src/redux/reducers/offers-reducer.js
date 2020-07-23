@@ -15,16 +15,16 @@ const Actions = {
   SET_CURRENT_CITY_DATA: `offers/SET_CURRENT_CITY_DATA`,
 };
 
-export const ActionCreater = {
+export const ActionCreaterOffers = {
   setOffers: (payload) => ({type: Actions.SET_OFFERS, payload}),
   setCurrentCity: (payload) => ({type: Actions.SET_CURRENT_CITY, payload}),
   setCurrentCityData: () => ({type: Actions.SET_CURRENT_CITY_DATA})
 };
 
-export const Operations = {
+export const OperationsOffers = {
   loadingOffers: () => async (dispatch, getState, api) => {
     let response = await api.get(`/hotels`)
-    dispatch(ActionCreater.setOffers(response.data))
+    dispatch(ActionCreaterOffers.setOffers(response.data))
   }
 }
 

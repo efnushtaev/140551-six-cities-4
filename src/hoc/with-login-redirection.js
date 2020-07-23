@@ -18,7 +18,7 @@ const withLoginRedirection = (Component) => {
   WithLoginRedirection.propTypes = {};
 
   let mapStateToProps = (state) => ({
-    isAuth: state.auth.isAuth
+    isAuth: getAuthStatus(status)
   })
 
   return connect(mapStateToProps, {})(WithLoginRedirection);

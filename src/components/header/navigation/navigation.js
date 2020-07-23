@@ -7,7 +7,7 @@ const Navigation = () => {
     <ul className="header__nav-list">
       <li className="header__nav-item user">
         <NavigationItem render={() => <ProfileLink/>}/>
-      </li>;
+      </li>
     </ul>
   </nav>;
 };
