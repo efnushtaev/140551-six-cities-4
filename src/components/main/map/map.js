@@ -27,24 +27,15 @@ class MapContainer extends React.Component {
     super(props);
   }
 
-  componentDidMount() {
-    this.props.setPinData(this.props.pinData);
-  }
-
   shouldComponentUpdate(prevProps) {
     return this.props.activePin !== prevProps.activePin
-      || this.props.currentCity !== prevProps.currentCity;
-  }
-
-  componentDidUpdate(prevProps) {
-    return this.props.currentCity !== prevProps.currentCity
-      && this.props.setPinData(this.props.pinData);
+      || this.props.currentCityLocation !== prevProps.currentCityLocation;
   }
 
   render() {
-    const {cityLocation, pinData, cityZoom, activePin} = this.props;
+    const {currentCityLocation, pinData, cityZoom, activePin} = this.props;
     return <div style={{height: `100%`, width: `100%`}} className="cities__map">
-      <Map style={{height: `100%`, width: `100%`}} center={cityLocation} zoom={cityZoom}>
+      <Map style={{height: `100%`, width: `100%`}} center={currentCityLocation} zoom={cityZoom}>
         <TileLayer
           url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png"
           attribution={`&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>`}
@@ -59,11 +50,11 @@ class MapContainer extends React.Component {
 
 MapContainer.propTypes = {
   cityZoom: PropTypes.number,
-  cityLocation: PropTypes.array.isRequired,
+  cityLocation: PropTypes.array,
   pinData: PropTypes.arrayOf(PropTypes.array),
-  setPinData: PropTypes.func.isRequired,
-  activePin: PropTypes.number.isRequired,
-  currentCity: PropTypes.string.isRequired
+  setPinData: PropTypes.func,
+  activePin: PropTypes.number,
+  currentCity: PropTypes.string
 };
 
 export default MapContainer;

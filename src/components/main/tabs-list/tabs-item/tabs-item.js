@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const TabsItem = ({title, onSetCurrentCity, currentCity}) => {
+const TabsItem = ({title, setCurrentCity, currentCity}) => {
   const _handleCurrentCityChange = (e) => {
     e.preventDefault();
-    onSetCurrentCity(title);
+    setCurrentCity(title);
   };
 
   return (
@@ -20,7 +20,7 @@ const TabsItem = ({title, onSetCurrentCity, currentCity}) => {
 
 TabsItem.propTypes = {
   title: PropTypes.oneOf([`Paris`, `Cologne`, `Brussels`, `Amsterdam`, `Hamburg`, `Dusseldorf`]).isRequired,
-  onSetCurrentCity: PropTypes.func.isRequired,
+  setCurrentCity: PropTypes.func.isRequired,
   currentCity: PropTypes.oneOf([`Paris`, `Cologne`, `Brussels`, `Amsterdam`, `Hamburg`, `Dusseldorf`]).isRequired
 };
 

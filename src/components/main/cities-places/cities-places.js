@@ -1,7 +1,7 @@
 import React from 'react';
 import PlacesListCities from './../places/places-list/places-list--cities';
 import TabsList from '../tabs-list/tabs-list';
-import {getOffers, getCityLocation, getCityZoom, getCurrentCity, getPinData} from '../../../redux/selectors/offer-selectors';
+import {getOffers, getFilteredOffers, getCurrentCityLocation, getCityZoom, getCurrentCity, getPinData} from '../../../redux/selectors/offer-selectors';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import {ActionCreater} from '../../../redux/reducers/offers-reducer';
@@ -10,44 +10,52 @@ import {compose} from 'redux';
 import withMap from '../../../hoc/with-map';
 import withActivePin from '../../../hoc/with-active-pin';
 import withSorting from '../../../hoc/with-sorting';
+import withLoginRedirection from '../../../hoc/with-login-redirection';
 
 const CitiesPlaces = (props) => {
   const {
     offers,
-    currentCity,
     renderMap,
     renderSortList,
     sortType,
     activePin,
     setActivePin,
-    setSortType,
-    setFilteredOffers,
+    filteredOffers,
+    currentCity,
+    setCurrentCityData,
   } = props;
+
+  React.useEffect(() => {
+    if (offers) {
+      setCurrentCityData()
+    }
+  }, [offers, currentCity])
+
   const _getPlacesCount = () => {
-    return offers.length;
+    return filteredOffers.length;
   };
+
   return (
-    <div className={offers.length === 0
+    <div className={filteredOffers === null
       ? `page__main page__main--index page__main--index-empty`
       : `page__main page__main--index`} >
       <div className="tabs">
         <TabsList />
       </div>
-      {offers.length !== 0
+      {filteredOffers !== null
         ? <div className="cities">
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
               <b className="places__found">
-                {_getPlacesCount()} places to stay in Amsterdam
+                {_getPlacesCount()} places to stay in {currentCity}
               </b>
-              {renderSortList(sortType, setSortType)}
+              {renderSortList()}
               <PlacesListCities
-                sortType={sortType}
-                offers={offers}
+                filteredOffers={filteredOffers}
                 currentCity={currentCity}
-                setActivePin={setActivePin}
-                setFilteredOffers={setFilteredOffers}
+                sortType={sortType}
+                onActivePinHover={setActivePin}
               />
             </section>
             <div className="cities__right-section">
@@ -61,17 +69,27 @@ const CitiesPlaces = (props) => {
   );
 };
 
-let mapStateToProps = (state) => ({
-  offers: getOffers(state),
-  cityLocation: getCityLocation(state),
-  pinData: getPinData(state),
-  cityZoom: getCityZoom(state),
-  currentCity: getCurrentCity(state)
-});
+let mapStateToProps = (state) => {
+  console.log('rerender CitiesPlaces')
+  return {
+    offers: getOffers(state),
+    currentCity: getCurrentCity(state),
+    filteredOffers: getFilteredOffers(state),
+    cityLocation: getCurrentCityLocation(state),
+    pinData: getPinData(state),
+    cityZoom: getCityZoom(state),
+  }
+};
 
 let mapDispatchToProps = (dispatch) => ({
-  setFilteredOffers(payload) {
-    dispatch(ActionCreater.setFilteredOffers(payload));
+  setOffers(payload) {
+    dispatch(ActionCreater.setOffers(payload));
+  },
+  setCurrentCity(payload) {
+    dispatch(ActionCreater.setCurrentCity(payload));
+  },
+  setCurrentCityData(payload) {
+    dispatch(ActionCreater.setCurrentCityData(payload));
   }
 });
 
@@ -81,7 +99,7 @@ CitiesPlaces.propTypes = {
   offers: PropTypes.arrayOf(PropTypes.object),
   sortType: PropTypes.string.isRequired,
   activePin: PropTypes.number,
-  setFilteredOffers: PropTypes.func,
+  setCurrentCityData: PropTypes.func,
   setPinData: PropTypes.func,
   setActivePin: PropTypes.func,
   setSortType: PropTypes.func,
@@ -94,4 +112,5 @@ export default compose(
     withMap,
     withSorting,
     withActivePin,
+    withLoginRedirection,
     React.memo)(CitiesPlaces);

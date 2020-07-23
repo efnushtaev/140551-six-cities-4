@@ -42,7 +42,7 @@ const PlacesCard = ({offer}) => {
       </h2>
       <p className="place-card__type">{type}</p>
     </div>
-  </>;
+  </>
 };
 
 PlacesCard.propTypes = {

@@ -1,6 +1,6 @@
 import React, {PureComponent} from 'react';
 import Map from './../components/main/map/map.js';
-import {getCityLocation, getPinData, getCurrentCity, getCityZoom} from '../redux/selectors/offer-selectors.js';
+import {getCurrentCity, getPinData, getCurrentCityLocation, getCityZoom} from '../redux/selectors/offer-selectors.js';
 import {ActionCreater} from '../redux/reducers/offers-reducer.js';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
@@ -11,21 +11,23 @@ const withMap = (Component) => {
       super(props);
     }
     render() {
-      const {cityLocation, pinData, cityZoom, currentCity, setPinData} = this.props;
+      
+      const {currentCityLocation, pinData, cityZoom, currentCity, setCurrentCityLocation} = this.props;
       return <Component
         {...this.props}
         renderMap={(activePin) => {
-          return (
-            <Map
-              cityLocation={cityLocation}
+          return pinData
+            ? <Map
+              currentCityLocation={currentCityLocation}
               pinData={pinData}
               cityZoom={cityZoom}
               activePin={activePin}
               currentCity={currentCity}
-              setPinData={setPinData}
+              setCurrentCityLocation={setCurrentCityLocation}
             />
-          );
-        }}
+            :null
+        }
+      }
       />;
     }
   }
@@ -43,7 +45,7 @@ const withMap = (Component) => {
 };
 
 let mapStateToProps = (state) => ({
-  cityLocation: getCityLocation(state),
+  currentCityLocation: getCurrentCityLocation(state),
   pinData: getPinData(state),
   currentCity: getCurrentCity(state),
   cityZoom: getCityZoom(state),
@@ -52,6 +54,12 @@ let mapStateToProps = (state) => ({
 let mapDispatchToProps = (dispatch) => ({
   setPinData(payload) {
     dispatch(ActionCreater.setPinData(payload));
+  },
+  setCurrentCityLocation(payload) {
+    dispatch(ActionCreater.setCurrentCityLocation(payload));
+  },
+  setCityZoom(payload) {
+    dispatch(ActionCreater.setCityZoom(payload));
   }
 });
 
