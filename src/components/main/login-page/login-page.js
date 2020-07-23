@@ -3,6 +3,7 @@ import {authOperations} from '../../../redux/reducers/auth-reducer';
 import {connect} from 'react-redux';
 import {Redirect} from 'react-router-dom';
 import {compose} from 'redux';
+import {getAuthStatus} from '../../../redux/selectors/auth-selectors';
 
 const LoginPage = (props) => {
   const [email, setEmail] = React.useState(``);
@@ -59,7 +60,7 @@ let mapDispatchToProps = (dispatch) => ({
 })
 
 let mapStateToProps = (state) => ({
-  isAuth: getAuthStatus(status)
+  isAuth: getAuthStatus(state)
 })
 
 export default compose(
