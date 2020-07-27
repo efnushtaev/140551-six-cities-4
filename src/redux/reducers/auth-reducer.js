@@ -2,6 +2,12 @@ const initialState = {
   isAuth: false
 };
 
+const ResponsedStatus = {
+  SUCCESS: 200,
+  ERROR: 400,
+  UNAUTHORIZED: 401
+}
+
 const Actions = {
   UPDATE_AUTH_STATUS: `auth/UPDATE_AUTH_STATUS`,
   SET_AUTH_INFO: `auth/SET_AUTH_INFO`,
@@ -16,24 +22,24 @@ export const authOperations = {
   updateAuthStatus: (email, password) => async (dispatch, getState, api) => {
     try{
       let response = await api.post(`/login`, {email, password})
-      if (response.status === 200) {
+      if (response.status === ResponsedStatus.SUCCESS) {
         dispatch(ActionCreateAuth.updateAuthStatus(true))
         dispatch(authOperations.setAuthInfo())
-      } console.log('SIGN IN ERROR: ', response.status)
+      }
     } catch(err) {
-      console.log(err)
+      console.log('UPDATE AUTH STATUS ERROR: ',err)
     }
   },
 
   setAuthInfo: () => async (dispatch, getState, api) => {
     try{
       let response = await api.get(`/login`)
-      if (response.status === 200) {
+      if (response.status === ResponsedStatus.SUCCESS) {
         dispatch(ActionCreateAuth.setAuthInfo(response.data))
         dispatch(ActionCreateAuth.updateAuthStatus(true))
-      } console.log('SIGN IN ERROR: ', response.status)
+      }
     } catch(err) {
-      console.log(err)
+      console.log('SIGN-IN ERROR: ',err)
     }
   }
 

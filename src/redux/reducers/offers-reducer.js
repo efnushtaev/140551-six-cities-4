@@ -1,5 +1,6 @@
 const initialState = {
   city: [`Paris`, `Cologne`, `Brussels`, `Amsterdam`, `Hamburg`, `Dusseldorf`],
+  currentOfferId: null,
   offers: null,
   currentCity: `Amsterdam`,
   filteredOffers: null,
@@ -13,12 +14,14 @@ const Actions = {
   SET_OFFERS: `offers/SET_OFFERS`,
   SET_CURRENT_CITY: `offer/SET_CURRENT_CITY`,
   SET_CURRENT_CITY_DATA: `offers/SET_CURRENT_CITY_DATA`,
+  SET_CURRENT_OFFER_ID: `offers/SET_CURRENT_OFFER_ID`,
 };
 
 export const ActionCreaterOffers = {
   setOffers: (payload) => ({type: Actions.SET_OFFERS, payload}),
   setCurrentCity: (payload) => ({type: Actions.SET_CURRENT_CITY, payload}),
-  setCurrentCityData: () => ({type: Actions.SET_CURRENT_CITY_DATA})
+  setCurrentCityData: () => ({type: Actions.SET_CURRENT_CITY_DATA}),
+  setCurrentOfferId: (payload) => ({type: Actions.SET_CURRENT_OFFER_ID, payload}),
 };
 
 export const OperationsOffers = {
@@ -42,8 +45,13 @@ const authReducer = (state = initialState, action) => {
           {currentCity: action.payload}
       );
     }
+    case Actions.SET_CURRENT_OFFER_ID: {
+      return Object.assign({},
+        state,
+        {currentOfferId: action.payload}
+        );
+    }
     case Actions.SET_CURRENT_CITY_DATA: {
-      console.log('SET_CURRENT_CITY_DATA')
       function getFilteredOffers(offers) {
         return offers.filter((el) => {
           return el.city.name === state.currentCity;
