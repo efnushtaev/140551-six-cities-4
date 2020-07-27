@@ -46,6 +46,9 @@ class PlacesList extends React.Component {
           onMouseLeave={() => {
             this.props.onActivePinHover(null);
           }}
+          onClick={() => {
+            this.props.onPlaceCardClick(e.id)
+          }}
           className={`${this.props.className.classNameArticle} place-card`}>
           <PlacesCard
             offer={e}

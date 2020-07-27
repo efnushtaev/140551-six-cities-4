@@ -1,12 +1,14 @@
 import {combineReducers, createStore, applyMiddleware, compose} from 'redux';
+import {createAPI} from '../api';
+import thunk from 'redux-thunk';
 import offersReducer from './reducers/offers-reducer';
 import authReducer from './reducers/auth-reducer';
-import thunk from 'redux-thunk';
-import {createAPI} from '../api';
+import reducerProperty from './reducers/property-reducer';
 
 let reducers = combineReducers({
   offers: offersReducer,
-  auth: authReducer
+  auth: authReducer,
+  property: reducerProperty
 });
 
 const api = createAPI();

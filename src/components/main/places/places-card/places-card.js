@@ -1,9 +1,10 @@
 /* eslint-disable camelcase */
 import React from 'react';
 import PropTypes from 'prop-types';
+import {NavLink} from 'react-router-dom';
 
 const PlacesCard = ({offer}) => {
-  const {preview_image, price, rating, title, type} = offer;
+  const {preview_image, price, rating, title, type, id} = offer;
 
   const _calculateRaiting = (r) => {
     return 20 * r;
@@ -14,9 +15,9 @@ const PlacesCard = ({offer}) => {
       <span>Premium</span>
     </div>
     <div className="cities__image-wrapper place-card__image-wrapper">
-      <a href="#">
+      <NavLink to={`/property/${id}`}>
         <img className="place-card__image" src={preview_image} width="260" height="200" alt="Place image"/>
-      </a>
+      </NavLink>
     </div>
     <div className="place-card__info">
       <div className="place-card__price-wrapper">
