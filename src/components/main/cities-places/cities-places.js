@@ -22,6 +22,7 @@ const CitiesPlaces = (props) => {
     filteredOffers,
     currentCity,
     setCurrentCityData,
+    setCurrentOfferId
   } = props;
 
   React.useEffect(() => {
@@ -55,6 +56,7 @@ const CitiesPlaces = (props) => {
                 currentCity={currentCity}
                 sortType={sortType}
                 onActivePinHover={setActivePin}
+                onPlaceCardClick={setCurrentOfferId}
               />
             </section>
             <div className="cities__right-section">
@@ -62,7 +64,7 @@ const CitiesPlaces = (props) => {
             </div>
           </div>
         </div>
-        : <p style={{fontSize: '1.4em', fontStyle: 'italic', textAlign: 'center'}}>Loading...</p>
+        : <MainEmpty/>
       }
     </div>
   );
@@ -88,6 +90,9 @@ let mapDispatchToProps = (dispatch) => ({
   },
   setCurrentCityData(payload) {
     dispatch(ActionCreaterOffers.setCurrentCityData(payload));
+  },
+  setCurrentOfferId(payload) {
+    dispatch(ActionCreaterOffers.setCurrentOfferId(payload));
   }
 });
 
