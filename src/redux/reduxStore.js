@@ -4,11 +4,13 @@ import thunk from 'redux-thunk';
 import offersReducer from './reducers/offers-reducer';
 import authReducer from './reducers/auth-reducer';
 import reducerProperty from './reducers/property-reducer';
+import reducerFavorite from './reducers/favorite-reducer';
 
 let reducers = combineReducers({
   offers: offersReducer,
   auth: authReducer,
-  property: reducerProperty
+  property: reducerProperty,
+  favorite: reducerFavorite
 });
 
 const api = createAPI();
