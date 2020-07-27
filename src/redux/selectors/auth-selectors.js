@@ -4,3 +4,6 @@ export const getAuthStatus = (state) => {
 export const getUserEmail = (state) => {
   return state.auth.email;
 };
+export const getUserAvatar = (state) => {
+  return state.auth.avatar_url;
+};

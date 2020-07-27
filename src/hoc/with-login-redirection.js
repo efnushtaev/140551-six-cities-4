@@ -1,6 +1,7 @@
 import React, {PureComponent} from 'react';
 import {connect} from 'react-redux';
 import {Redirect} from 'react-router-dom';
+import {getAuthStatus} from './../redux/selectors/auth-selectors'
 
 const withLoginRedirection = (Component) => {
   class WithLoginRedirection extends PureComponent {
@@ -18,7 +19,7 @@ const withLoginRedirection = (Component) => {
   WithLoginRedirection.propTypes = {};
 
   let mapStateToProps = (state) => ({
-    isAuth: getAuthStatus(status)
+    isAuth: getAuthStatus(state)
   })
 
   return connect(mapStateToProps, {})(WithLoginRedirection);
