@@ -20,7 +20,7 @@ const Actions = {
 export const ActionCreaterOffers = {
   setOffers: (payload) => ({type: Actions.SET_OFFERS, payload}),
   setCurrentCity: (payload) => ({type: Actions.SET_CURRENT_CITY, payload}),
-  setCurrentCityData: () => ({type: Actions.SET_CURRENT_CITY_DATA}),
+  setCurrentCityData: (payload) => ({type: Actions.SET_CURRENT_CITY_DATA, payload}),
   setCurrentOfferId: (payload) => ({type: Actions.SET_CURRENT_OFFER_ID, payload}),
 };
 
@@ -57,32 +57,9 @@ const authReducer = (state = initialState, action) => {
           return el.city.name === state.currentCity;
         })
       }
-      function getCityZoom(filteredOffers) {
-        return filteredOffers.length > 0
-          ? filteredOffers[0].city.location.zoom
-          : null
-      }
-      function getCityLocation(filteredOffers) {
-        const cityCords = filteredOffers[0].city.location;
-        return filteredOffers.length > 0
-          ? [cityCords.latitude, cityCords.longitude]
-          : null;
-      }
-      function getPinData(filteredOffers) {
-        return filteredOffers.length > 0
-          ? filteredOffers.map((el) => ({
-                id: el.id,
-                locationPair: [el.location.latitude, el.location.longitude],
-            }))
-          : null
-      }
-      return Object.assign({},
+      return Object.assign({},  
         state,
-        { filteredOffers: getFilteredOffers(state.offers),
-          pinData: getPinData(getFilteredOffers(state.offers)),
-          currentCityLocation: getCityLocation(getFilteredOffers(state.offers)),
-          cityZoom: getCityZoom(getFilteredOffers(state.offers))
-        }
+        {filteredOffers: getFilteredOffers(state.offers)}
       );
     }
     default: return state;

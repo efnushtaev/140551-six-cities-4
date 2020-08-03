@@ -11,11 +11,23 @@ export const getFilteredOffers = (state) => {
   return state.offers.filteredOffers;
 };
 export const getPinData = (state) => {
-  return state.offers.pinData;
+  const filteredOffers = getFilteredOffers(state);
+  return filteredOffers != null
+    ? filteredOffers.map((el) => ({
+      id: el.id,
+      locationPair: [el.location.latitude, el.location.longitude],
+    }))
+    : null;
 };
 export const getCurrentCityLocation = (state) => {
-  return state.offers.currentCityLocation;
+  const filteredOffers = getFilteredOffers(state);
+  return filteredOffers != null
+    ? [filteredOffers[0].city.location.latitude, filteredOffers[0].city.location.longitude]
+    : null;
 };
 export const getCityZoom = (state) => {
-  return state.offers.cityZoom;
+  const filteredOffers = getFilteredOffers(state);
+  return filteredOffers != null
+    ? filteredOffers[0].city.location.zoom
+    : null;
 };

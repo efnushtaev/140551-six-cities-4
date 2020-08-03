@@ -6,13 +6,17 @@ import {ActionCreaterOffers} from '../../../redux/reducers/offers-reducer';
 import PropTypes from 'prop-types';
 import {compose} from 'redux';
 
-const TabsList = ({cityList, currentCity, setCurrentCity}) => {
+const TabsList = ({cityList, currentCity, setCurrentCity, setCurrentCityData}) => {
   return (
     <section className="locations container">
       <ul className="locations__list tabs__list">
         {cityList.map((el, i) =>
           <li key={el + i} className="locations__item">
-            <TabsItem currentCity={currentCity} setCurrentCity={setCurrentCity} title={el}/>
+            <TabsItem
+              currentCity={currentCity}
+              setCurrentCity={setCurrentCity}
+              setCurrentCityData={setCurrentCityData}
+              title={el}/>
           </li>)
         }
       </ul>
@@ -28,6 +32,9 @@ let mapStateToProps = (state) => ({
 let mapDispatchToProps = (dispatch) => ({
   setCurrentCity(payload) {
     dispatch(ActionCreaterOffers.setCurrentCity(payload));
+  },
+  setCurrentCityData() {
+    dispatch(ActionCreaterOffers.setCurrentCityData());
   }
 });
 

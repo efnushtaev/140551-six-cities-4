@@ -1,10 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const TabsItem = ({title, setCurrentCity, currentCity}) => {
+const TabsItem = ({title, setCurrentCity, currentCity, setCurrentCityData}) => {
   const _handleCurrentCityChange = (e) => {
     e.preventDefault();
     setCurrentCity(title);
+    setCurrentCityData();
   };
 
   return (

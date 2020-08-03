@@ -8,7 +8,7 @@ const PropertyReviews = (props) => {
   const ratingValues = [5, 4, 3, 2, 1];
   const [ratingChecked, setratingChecked] = useState(0);
   const [sumbitStatus, setSubmitStatus] = useState(false);
-  const [commentText, setCommentText] = useState(`qwertyqwertyqwertyqwertrtyqwertyqwertyqwertyqwerty1yqwerty1`);
+  const [commentText, setCommentText] = useState(``);
   const commentTextRef = React.createRef();
   const submitRef = React.createRef();
   const MIN_COMMENT_LENGTH = 50;
@@ -76,7 +76,7 @@ const PropertyReviews = (props) => {
                   </div>
                 </div>
                 <p className="reviews__text">
-                {el.comment}
+                  {el.comment}
                 </p>
                 <time className="reviews__time" dateTime={el.date}>{_getDate(el.date)}</time>
               </div>

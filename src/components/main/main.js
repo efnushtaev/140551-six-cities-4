@@ -4,7 +4,7 @@ import {Switch, Route, withRouter} from 'react-router-dom';
 import PropertyPage from './property/property-page';
 import Favorites from './favorites/favorites';
 import LoginPage from './login-page/login-page';
-import { compose } from 'redux';
+import {compose} from 'redux';
 
 const Main = () => {
   return <Switch>
@@ -12,7 +12,7 @@ const Main = () => {
     <Route exact path={`/property/:offerId?`} render={() => <PropertyPage/>} />
     <Route exact path={`/favorites`} render={() => <Favorites/>} />
     <Route exact path={`/login`} render={() => <LoginPage/>} />
-  </Switch>
+  </Switch>;
 };
 
 export default compose(

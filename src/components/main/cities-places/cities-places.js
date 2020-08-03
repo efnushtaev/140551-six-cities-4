@@ -1,10 +1,11 @@
 import React from 'react';
 import PlacesListCities from './../places/places-list/places-list--cities';
 import TabsList from '../tabs-list/tabs-list';
-import {getOffers, getFilteredOffers, getCurrentCityLocation, getCityZoom, getCurrentCity, getPinData} from '../../../redux/selectors/offer-selectors';
+import {getOffers, getFilteredOffers, getCurrentCity, getCurrentCityLocation, getPinData, getCityZoom} from '../../../redux/selectors/offer-selectors';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import {ActionCreaterOffers} from '../../../redux/reducers/offers-reducer';
+import {OperationFavorite} from '../../../redux/reducers/favorite-reducer';
 import MainEmpty from '../main-empty/main-empty';
 import {compose} from 'redux';
 import withMap from '../../../hoc/with-map';
@@ -13,23 +14,22 @@ import withSorting from '../../../hoc/with-sorting';
 
 const CitiesPlaces = (props) => {
   const {
-    offers,
-    renderMap,
-    renderSortList,
-    sortType,
-    activePin,
-    setActivePin,
-    filteredOffers,
-    currentCity,
-    setCurrentCityData,
-    setCurrentOfferId
+    offers, renderMap, renderSortList, sortType, activePin,
+    setActivePin, filteredOffers, currentCity, setCurrentCityData,
+    setCurrentOfferId, postFavorite, currentCityLocation, pinData, cityZoom
   } = props;
 
   React.useEffect(() => {
     if (offers) {
-      setCurrentCityData()
+      setCurrentCityData(offers);
     }
-  }, [offers, currentCity])
+  }, [currentCity, offers]);
+
+  React.useEffect(() => {
+    if (offers) {
+      setCurrentCityData(offers);
+    }
+  }, [currentCity, offers]);
 
   const _getPlacesCount = () => {
     return filteredOffers.length;
@@ -53,14 +53,14 @@ const CitiesPlaces = (props) => {
               {renderSortList()}
               <PlacesListCities
                 filteredOffers={filteredOffers}
-                currentCity={currentCity}
                 sortType={sortType}
                 onActivePinHover={setActivePin}
                 onPlaceCardClick={setCurrentOfferId}
+                onFavoriteStatusChange={postFavorite}
               />
             </section>
             <div className="cities__right-section">
-              {renderMap(activePin)}
+              {renderMap(activePin, currentCityLocation, pinData, cityZoom)}
             </div>
           </div>
         </div>
@@ -72,10 +72,10 @@ const CitiesPlaces = (props) => {
 
 let mapStateToProps = (state) => {
   return {
-    offers: getOffers(state),
     currentCity: getCurrentCity(state),
     filteredOffers: getFilteredOffers(state),
-    cityLocation: getCurrentCityLocation(state),
+    offers: getOffers(state),
+    currentCityLocation: getCurrentCityLocation(state),
     pinData: getPinData(state),
     cityZoom: getCityZoom(state),
   }
@@ -86,13 +86,16 @@ let mapDispatchToProps = (dispatch) => ({
     dispatch(ActionCreaterOffers.setOffers(payload));
   },
   setCurrentCity(payload) {
-    dispatch(ActionCreaterOffers.setCurrentCity(payload));
-  },
-  setCurrentCityData(payload) {
     dispatch(ActionCreaterOffers.setCurrentCityData(payload));
+  },
+  setCurrentCityData() {
+    dispatch(ActionCreaterOffers.setCurrentCityData());
   },
   setCurrentOfferId(payload) {
     dispatch(ActionCreaterOffers.setCurrentOfferId(payload));
+  },
+  postFavorite(offerId, status) {
+    dispatch(OperationFavorite.postFavorite(offerId, status));
   }
 });
 

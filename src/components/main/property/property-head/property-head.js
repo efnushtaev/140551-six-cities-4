@@ -1,11 +1,11 @@
 import React from 'react';
+import RaitingDrawer from '../../../common/raiting-drawer/raiting-drawer';
 
 const PorpertyHead = (props) => {
-  const {is_premium, title, rating, type, bedrooms, max_adults, price} = props;
-
-  const _calculateRaiting = (r) => {
-    return 20 * r;
-  };
+  const {onFavoriteButtonClick, isAuth, is_favorite, is_premium, title, rating, type, bedrooms, max_adults, price, id} = props;
+  const handleFavoriteStatusChange = () => {
+    onFavoriteButtonClick(id, !is_favorite)
+  }
 
   return <>
     {is_premium && <div className="property__mark">
@@ -15,16 +15,19 @@ const PorpertyHead = (props) => {
       <h1 className="property__name">
         {title}
       </h1>
-      <button className="property__bookmark-button button" type="button">
-        <svg className="property__bookmark-icon" width="31" height="33">
-          <use xlinkHref="#icon-bookmark"/>
-        </svg>
-        <span className="visually-hidden">To bookmarks</span>
-      </button>
+      {isAuth
+        ? <button onClick={handleFavoriteStatusChange} className={`property__bookmark-button button`} type="button">
+          <svg style={is_favorite ? {fill: `#4481c3`, stroke: `#4481c3`} : {}} className="property__bookmark-icon" width="31" height="33">
+            <use xlinkHref="#icon-bookmark"/>
+          </svg>
+          <span className="visually-hidden">To bookmarks</span>
+        </button>
+        : null
+      }
     </div>
     <div className="property__rating rating">
       <div className="property__stars rating__stars">
-      <span style={{width: `${_calculateRaiting(rating)}%`}}></span>
+        <RaitingDrawer rating={rating} />
         <span className="visually-hidden">Rating</span>
       </div>
       <span className="property__rating-value rating__value">{rating}</span>

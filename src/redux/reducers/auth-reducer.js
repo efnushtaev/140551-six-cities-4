@@ -45,7 +45,7 @@ export const authOperations = {
 
 }
 
-const offersReducer = (state = initialState, action) => {
+const authReducer = (state = initialState, action) => {
   switch (action.type) {
     case Actions.UPDATE_AUTH_STATUS: {
       return Object.assign({},
@@ -63,4 +63,4 @@ const offersReducer = (state = initialState, action) => {
   }
 };
 
-export default offersReducer;
+export default authReducer;

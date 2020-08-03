@@ -2,19 +2,35 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import PlacesCard from '../places-card/places-card';
 import {SortType} from '../../../../constants/const';
+import {connect} from 'react-redux';
+import {OperationsOffers} from '../../../../redux/reducers/offers-reducer';
+import {getOffers} from '../../../../redux/selectors/offer-selectors';
+import {getFavoriteList} from '../../../../redux/selectors/favorite-selectors';
+import {getAuthStatus} from '../../../../redux/selectors/auth-selectors';
 
 class PlacesList extends React.Component {
   constructor(props) {
     super(props);
   }
 
-  shouldComponentUpdate(prevProps) {
-    return this.props.currentCity !== prevProps.currentCity 
-    || this.props.sortType !== prevProps.sortType
-    || this.props.filteredOffers !== prevProps.filteredOffers;
+  componentDidMount() {
+    this.props.loadingOffers();
   }
 
-  _getSortedOffers(filteredOffers, sortType) {
+  componentDidUpdate(prevProps) {
+    if (this.props.favoriteList !== prevProps.favoriteList) {
+      this.props.loadingOffers();
+    }
+  }
+
+  shouldComponentUpdate(prevProps) {
+    return this.props.sortType !== prevProps.sortType
+    || this.props.offers !== prevProps.offers
+    || this.props.filteredOffers !== prevProps.filteredOffers
+    || this.props.favoriteList !== prevProps.favoriteList;
+  }
+
+  _getSortedOffers(filteredOffers, sortType = SortType.popular) {
     switch (sortType) {
       case SortType.priceLowToHigh:
         return filteredOffers.sort((a, b) => {
@@ -51,6 +67,8 @@ class PlacesList extends React.Component {
           }}
           className={`${this.props.className.classNameArticle} place-card`}>
           <PlacesCard
+            isAuth={this.props.isAuth}
+            onFavoriteStatusChange={this.props.onFavoriteStatusChange}
             offer={e}
             key={e.id}/>
         </article>;
@@ -78,4 +96,16 @@ class PlacesList extends React.Component {
 //   }))
 // };
 
-export default PlacesList;
+let mapStateToProps = (state) => ({
+  isAuth: getAuthStatus(state),
+  offers: getOffers(state),
+  favoriteList: getFavoriteList(state)
+});
+
+let mapDispatchToProps = (dispatch) => ({
+  loadingOffers() {
+    dispatch(OperationsOffers.loadingOffers());
+  }
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(PlacesList);

@@ -1,8 +1,5 @@
 import React, {PureComponent} from 'react';
 import Map from './../components/main/map/map.js';
-import {getCurrentCity, getPinData, getCurrentCityLocation, getCityZoom} from '../redux/selectors/offer-selectors.js';
-import {ActionCreaterOffers} from '../redux/reducers/offers-reducer.js';
-import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 
 const withMap = (Component) => {
@@ -11,22 +8,19 @@ const withMap = (Component) => {
       super(props);
     }
     render() {
-      const {currentCityLocation, pinData, cityZoom, currentCity, setCurrentCityLocation} = this.props;
       return <Component
         {...this.props}
-        renderMap={(activePin) => {
+        renderMap={(activePin, currentCityLocation, pinData, cityZoom) => {
           return pinData
             ? <Map
+              activePin={activePin}
               currentCityLocation={currentCityLocation}
               pinData={pinData}
               cityZoom={cityZoom}
-              activePin={activePin}
-              currentCity={currentCity}
-              setCurrentCityLocation={setCurrentCityLocation}
             />
             :null
         }
-      }
+        }
       />;
     }
   }
@@ -40,26 +34,7 @@ const withMap = (Component) => {
     pinData: PropTypes.arrayOf(PropTypes.array)
   };
 
-  return connect(mapStateToProps, mapDispatchToProps)(WithMap);
+  return WithMap;
 };
-
-let mapStateToProps = (state) => ({
-  currentCityLocation: getCurrentCityLocation(state),
-  pinData: getPinData(state),
-  currentCity: getCurrentCity(state),
-  cityZoom: getCityZoom(state),
-});
-
-let mapDispatchToProps = (dispatch) => ({
-  setPinData(payload) {
-    dispatch(ActionCreaterOffers.setPinData(payload));
-  },
-  setCurrentCityLocation(payload) {
-    dispatch(ActionCreaterOffers.setCurrentCityLocation(payload));
-  },
-  setCityZoom(payload) {
-    dispatch(ActionCreaterOffers.setCityZoom(payload));
-  }
-});
 
 export default withMap;
