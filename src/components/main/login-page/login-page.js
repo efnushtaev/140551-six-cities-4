@@ -15,16 +15,16 @@ const LoginPage = (props) => {
 
   const handleEmailChange = () => {
     const emailCurrent = emailInput.current.value;
-    setEmail(emailCurrent)
-  }
+    setEmail(emailCurrent);
+  };
   const handlePasswordChange = () => {
     const passwordCurrent = passwordInput.current.value;
-    setPassword(passwordCurrent)
-  }
+    setPassword(passwordCurrent);
+  };
   const handleSubmitClick = (e) => {
     e.preventDefault();
     props.updateAuthStatus(email, password);
-  }
+  };
 
   return !props.isAuth
     ? <div className="page__login-container container">
@@ -50,18 +50,18 @@ const LoginPage = (props) => {
         </div>
       </section>
     </div>
-    : <Redirect to={`/`}/>
-}
+    : <Redirect to={`/`}/>;
+};
 
 let mapDispatchToProps = (dispatch) => ({
   updateAuthStatus(email, password) {
-    dispatch(authOperations.updateAuthStatus(email, password))
+    dispatch(authOperations.updateAuthStatus(email, password));
   }
-})
+});
 
 let mapStateToProps = (state) => ({
   isAuth: getAuthStatus(state)
-})
+});
 
 export default compose(
     connect(mapStateToProps, mapDispatchToProps),
